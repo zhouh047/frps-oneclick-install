@@ -121,10 +121,12 @@ install_dependencies(){
 	
 	if check_sys packageManager yum; then
 		error_detect_depends "yum -y install wget" 
-        error_detect_depends "yum -y install expect"		
+        error_detect_depends "yum -y install expect"
+	error_detect_depends "yum -y install net-tools"	
 	elif check_sys packageManager apt; then
 		error_detect_depends "apt-get -y install wget"
 		error_detect_depends "apt-get -y install expect"
+		error_detect_depends "apt-get -y install net-tools"	
 	fi	
 }
 
@@ -180,7 +182,7 @@ install_frps(){
 	download /usr/local/etc/frp/frps.ini https://raw.githubusercontent.com/zhouh047/frps-oneclick-install/main/frps.ini
 	
 	temppasswd=`mkpasswd -l 8`
-	[ "$(grep -x -E "(dashboard_pwd =)" /usr/local/etc/frp/frps.ini)" ] ||  sed -i "dashboard_pwd = ${temppasswd}"  /usr/local/etc/frp/frps.ini
+	[ grep -x -E "dashboard_pwd =" /usr/local/etc/frp/frps.ini) ] &&  sed -i "s/dashboard_pwd = ${temppasswd}/g"  /usr/local/etc/frp/frps.ini
 
 	echo "frps 0.40.0安装成功..."
 	[ -f /usr/bin/frps ] && echo -e "${green}installed${plain}: /usr/bin/frps"
