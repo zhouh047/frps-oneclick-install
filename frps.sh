@@ -180,7 +180,7 @@ install_frps(){
 	download /usr/local/etc/frp/frps.ini https://raw.githubusercontent.com/zhouh047/frps-oneclick-install/main/frps.ini
 	
 	temppasswd=`mkpasswd -l 8`
-	[ "$(grep -x -E "(dashboard_pwd = )" /usr/local/etc/frp/frps.ini)" ] ||  sed -i "s/dashboard_pwd \= ${temppasswd}/g"  /usr/local/etc/frp/frps.ini
+	[ "$(grep -x -E "(dashboard_pwd = )" /usr/local/etc/frp/frps.ini)" ] ||  sed -i "s/dashboard\_pwd \= ${temppasswd}/g"  /usr/local/etc/frp/frps.ini
 
 	echo "frps 0.40.0安装成功..."
 	[ -f /usr/bin/frps ] && echo -e "${green}installed${plain}: /usr/bin/frps"
@@ -191,8 +191,8 @@ install_frps(){
 	systemctl start frps || (echo -e "[${red}Error:${plain}] Failed to start frps." && exit 1)
     systemctl enable frps 
 	echo -e "${yellow}仪表盘位置：$(get_ip):7500${plain}"
-	echo -e "${yellow}dashboard_user:admin{plain}"
-	echo -e "${yellow}dashboard_pwd:${temppasswd}{plain}"
+	echo -e "${yellow}dashboard_user:admin${plain}"
+	echo -e "${yellow}dashboard_pwd:${temppasswd}${plain}"
 }
 
 uninstall_frps(){
