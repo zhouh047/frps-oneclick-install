@@ -162,7 +162,6 @@ install_frps(){
         netstat -a -n -p | grep LISTEN | grep -P "\d+\.\d+\.\d+\.\d+:${aport}\s+" > /dev/null && echo -e "[${red}Error${plain}] required port ${aport} already in use\n" && exit 1
     done
 	echo "安装frps 0.40.0版本..."
-	install_dependencies
 	bit=`uname -m`
 	if [[ ${bit} = "x86_64" ]]; then
 		download /usr/bin/frps https://github.com/zhouh047/frps-oneclick-install/raw/main/frp/frps_0.40.0_linux_amd64 
@@ -216,6 +215,7 @@ if [[ $# = 1 ]];then
     case $key in
         -i|--install)
 		disable_selinux
+		install_dependencies
         install_frps
         ;;
         -u|--uninstall)
