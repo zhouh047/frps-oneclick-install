@@ -182,8 +182,7 @@ install_frps(){
 	download /usr/local/etc/frp/frps.ini https://raw.githubusercontent.com/zhouh047/frps-oneclick-install/main/frps.ini
 	
 	temppasswd=`mkpasswd -l 8`
-	[ grep -x -E "dashboard_pwd =" /usr/local/etc/frp/frps.ini) ] &&  sed -i "s/dashboard_pwd = ${temppasswd}/g"  /usr/local/etc/frp/frps.ini
-
+	sed -i "s/dashboard_pwd =/dashboard_pwd = ${temppasswd}/g"  /usr/local/etc/frp/frps.ini
 	echo "frps 0.40.0安装成功..."
 	[ -f /usr/bin/frps ] && echo -e "${green}installed${plain}: /usr/bin/frps"
 	[ -f /etc/systemd/system/frps.service ] && echo -e "${green}installed${plain}: /etc/systemd/system/frps.service"
